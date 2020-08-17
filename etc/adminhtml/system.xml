@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="portmone_payment" translate="label" type="text" sortOrder="-1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Portmone</label>
+                <comment>Portmone payment service</comment>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Включить Portmone payment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Название способа оплаты</label>
+                </field>
+                <field id="payee_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Идентификатор магазина Portmone(Payee ID)</label>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Новый статус заказа</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\NewStatus</source_model>
+                </field>
+                <field id="payment_success_order_status" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Статус заказа после успешной оплаты</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\Newprocessing</source_model>
+                </field>
+                <field id="payment_error_order_status" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Статус заказа после неудачной оплаты</label>
+                    <source_model>\Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="allowed_carrier" translate="label" type="multiselect" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Допустимые методы доставки</label>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allmethods</source_model>
+                </field>
+                <field id="description" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Description of order in payment system</label>
+                </field>
+                <field id="submit_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Submit URL</label>
+                </field>
+                <field id="language" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Language</label>
+                    <source_model>\CodeCustom\Portmone\Model\System\Config\Source\Language</source_model>
+                </field>
+                <field id="success_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Success URL</label>
+                </field>
+                <field id="failure_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Failure URL</label>
+                </field>
+                <field id="front_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Front Redirect URL (PWA)</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,12 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\QuoteGraphQl\Model\Resolver\PlaceOrder">
+        <plugin name="PlaceOrderResolverPortmone"
+                type="CodeCustom\Portmone\Plugin\Resolver\PlaceOrder"
+                sortOrder="16"
+                disabled="false"/>
+    </type>
+    <preference for="CodeCustom\Portmone\Api\Response\SuccessInterface"
+                type="CodeCustom\Portmone\Model\Response\Success"/>
+    <preference for="CodeCustom\Portmone\Api\Response\FailureInterface"
+                type="CodeCustom\Portmone\Model\Response\Failure"/>
+</config>
