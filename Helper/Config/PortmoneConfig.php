@@ -22,6 +22,7 @@ class PortmoneConfig extends AbstractHelper
     const XML_PATH_SUCCESS_URL                      = 'payment/portmone_payment/success_url';
     const XML_PATH_FAILURE_URL                      = 'payment/portmone_payment/failure_url';
     const XML_PATH_FRONT_URL                        = 'payment/portmone_payment/front_url';
+    const XML_PATH_ALLOWED_CARRIERS                 = 'payment/portmone_payment/allowed_carrier';
 
     /**
      * @var StoreManagerInterface
@@ -151,6 +152,14 @@ class PortmoneConfig extends AbstractHelper
     private function getBaseurl()
     {
         return $this->_storeManager->getStore()->getBaseUrl();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllowedCarriers()
+    {
+        return $this->getConfigValue(self::XML_PATH_ALLOWED_CARRIERS);
     }
 
 }

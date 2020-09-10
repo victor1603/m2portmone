@@ -9,10 +9,11 @@ use Magento\Payment\Gateway\Command\CommandPoolInterface;
 use Magento\Payment\Gateway\Config\ValueHandlerPoolInterface;
 use Magento\Payment\Gateway\Data\PaymentDataObjectFactory;
 use Magento\Payment\Gateway\Validator\ValidatorPoolInterface;
-use \Magento\Payment\Model\Method\AbstractMethod;
+use Magento\Payment\Model\Method\AbstractMethod;
 use Psr\Log\LoggerInterface;
 use Magento\Payment\Model\InfoInterface;
 use CodeCustom\Portmone\Sdk\Portmone as PortmoneSdk;
+use Magento\Quote\Api\Data\CartInterface;
 
 class Portmone extends AbstractMethod
 {
@@ -103,9 +104,17 @@ class Portmone extends AbstractMethod
      * @param \Magento\Quote\Api\Data\CartInterface|null $quote
      * @return bool
      */
-    public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
+    public function isAvailable(CartInterface $quote = null)
     {
         if (!$this->_portmone->getHelper()->isEnabled()) {
+            return false;
+        }
+
+        $shippingMethod = $quote->getShippingAddress()->getShippingMethod();
+        $allowedCarriers = $this->_portmone->getHelper()->getAllowedCarriers();
+        $allowedShippingMethods = $allowedCarriers ? explode(',', $allowedCarriers) : null;
+
+        if (!$allowedShippingMethods || !in_array($shippingMethod, $allowedShippingMethods)) {
             return false;
         }
 
