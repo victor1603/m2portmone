@@ -95,7 +95,7 @@ class PortmoneConfig extends AbstractHelper
      */
     public function getSuccessUrl()
     {
-        return 'https://clear-m235.loc/rest/V1/portmone/success'; //$this->getBaseurl() . $this->getConfigValue(self::XML_PATH_SUCCESS_URL);
+        return $this->getBaseurl() . 'rest/V1/portmone/success'; //$this->getBaseurl() . $this->getConfigValue(self::XML_PATH_SUCCESS_URL);
     }
 
     /**
@@ -103,7 +103,7 @@ class PortmoneConfig extends AbstractHelper
      */
     public function getFailureUrl()
     {
-        return 'https://clear-m235.loc/rest/V1/portmone/success';//$this->getBaseurl() . $this->getConfigValue(self::XML_PATH_FAILURE_URL);
+        return $this->getBaseurl() . 'rest/V1/portmone/success';//$this->getBaseurl() . $this->getConfigValue(self::XML_PATH_FAILURE_URL);
     }
 
     /**
