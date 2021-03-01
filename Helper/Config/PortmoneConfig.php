@@ -46,9 +46,7 @@ class PortmoneConfig extends AbstractHelper
     public function getConfigValue($field, $storeId = null)
     {
         $storeId = $storeId ? $storeId : $this->getSiteStoreId();
-        $ttt = $this->scopeConfig->getValue(
-            $field, ScopeInterface::SCOPE_STORE, $storeId
-        );
+
         return $this->scopeConfig->getValue(
             $field, ScopeInterface::SCOPE_STORE, $storeId
         );
