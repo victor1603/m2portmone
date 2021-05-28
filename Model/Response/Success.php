@@ -14,6 +14,7 @@ use Magento\Framework\DB\Transaction;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order\Payment\Transaction\BuilderInterface;
+use Magento\Sales\Model\ResourceModel\Order as OrderResource;
 
 class Success implements SuccessInterface
 {
@@ -68,6 +69,11 @@ class Success implements SuccessInterface
     protected $orderModel;
 
     /**
+     * @var OrderResource
+     */
+    protected $orderResource;
+
+    /**
      * @var null
      */
     public $history = null;
@@ -82,7 +88,8 @@ class Success implements SuccessInterface
         Invoice $_invoice,
         OrderRepositoryInterface $_orderRepository,
         BuilderInterface $_transactionBuilder,
-        Order $order
+        Order $order,
+        OrderResource $orderResource
     )
     {
         $this->request = $request;
@@ -95,6 +102,7 @@ class Success implements SuccessInterface
         $this->_orderRepository = $_orderRepository;
         $this->_transactionBuilder = $_transactionBuilder;
         $this->orderModel = $order;
+        $this->orderResource = $orderResource;
     }
 
     /**
@@ -254,17 +262,16 @@ class Success implements SuccessInterface
             $history += $this->history;
         }
 
+        if ($state) {
+            $order->setStatus($state);
+        }
+
         if (count($history)) {
             $order->addStatusHistoryComment(implode(' ', $history))
                 ->setIsCustomerNotified(true);
         }
 
-        if ($state) {
-            $order->setState($state);
-            $order->setStatus($state);
-            $order->save();
-        }
-        $this->_orderRepository->save($order);
+        $this->orderResource->save($order);
         return true;
     }
 

@@ -9,6 +9,7 @@ use CodeCustom\Portmone\Helper\Config\PortmoneConfig;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Sales\Model\ResourceModel\Order as OrderResource;
 
 class Failure implements FailureInterface
 {
@@ -38,6 +39,11 @@ class Failure implements FailureInterface
     protected $_orderRepository;
 
     /**
+     * @var OrderResource
+     */
+    protected $orderResource;
+
+    /**
      * @var StoreManagerInterface
      */
     protected $storeManager;
@@ -53,6 +59,7 @@ class Failure implements FailureInterface
         PortmoneConfig $configHelper,
         OrderRepositoryInterface $_orderRepository,
         Order $orderModel,
+        OrderResource $orderResource,
         StoreManagerInterface $storeManager
     )
     {
@@ -61,6 +68,7 @@ class Failure implements FailureInterface
         $this->configHelper = $configHelper;
         $this->_orderRepository = $_orderRepository;
         $this->orderModel = $orderModel;
+        $this->orderResource = $orderResource;
         $this->storeManager = $storeManager;
     }
 
@@ -100,17 +108,17 @@ class Failure implements FailureInterface
             $history += $this->history;
         }
 
+        if ($state) {
+            $order->setStatus($state);
+
+        }
+
         if (count($history)) {
             $order->addStatusHistoryComment(implode(' ', $history))
                 ->setIsCustomerNotified(true);
         }
 
-        if ($state) {
-            $order->setState($state);
-            $order->setStatus($state);
-            $order->save();
-        }
-        $this->_orderRepository->save($order);
+        $this->orderResource->save($order);
         return true;
     }
 
