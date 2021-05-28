@@ -136,6 +136,11 @@ class PortmoneConfig extends AbstractHelper
         return $this->getConfigValue(self::XML_PATH_FRONT_URL);
     }
 
+    public function getOrderNewStatus()
+    {
+        return $this->getConfigValue(self::XML_PATH_PAYMENT_NEW_STATUS);
+    }
+
     public function getOrderSuccessStatus()
     {
         return $this->getConfigValue(self::XML_PATH_PAYMENT_SUCCESS_STATUS);
