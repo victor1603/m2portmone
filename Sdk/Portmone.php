@@ -80,6 +80,24 @@ class Portmone extends PortmoneCoreSdk
     }
 
     /**
+     * @param $data
+     * @return array
+     */
+    public function postData($data)
+    {
+        $params['params'] = $this->prepareParams($data);
+        $params['isGuest'] = $data['isGuest'];
+        $params['payeeId'] = $this->_helper->getPayeeId();
+        $params['orderId'] = $data['orderId'];
+        $params['grandTotal'] = $data['grandTotal'];
+        $params['description'] = $this->_helper->getDescription();
+        $params['successUrl'] = $this->_helper->getSuccessUrl();
+        $params['failureUrl'] = $this->_helper->getFailureUrl();
+        $params['lang'] = $this->_helper->getLanguage();
+        return parent::postData($params);
+    }
+
+    /**
      * @return string[]
      */
     private function getPaymentTypes()

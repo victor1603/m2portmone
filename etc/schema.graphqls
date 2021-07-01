@@ -18,7 +18,10 @@ directive @doc(description: String="") on QUERY
 directive @resolver(class: String) on FIELD_DEFINITION
 directive @cache(cacheable: Boolean) on FIELD_DEFINITION
 
-
+type Query {
+    get_payment_url(order: String!, customer: String!): PortmonePaymentLink
+    @resolver(class: "\\CodeCustom\\Portmone\\Model\\Resolver\\PaymentUrl")
+}
 
 type Order {
     payment_extension_data: paymentData
@@ -28,4 +31,8 @@ type paymentData {
     redirect_url: String
     html_data: String
     payment_method: String
+}
+
+type PortmonePaymentLink {
+    payment_url: String
 }

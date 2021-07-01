@@ -12,6 +12,9 @@
                 <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Название способа оплаты</label>
                 </field>
+                <field id="order_prefix" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Prefix for order increment_id</label>
+                </field>
                 <field id="payee_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" >
                     <label>Идентификатор магазина Portmone(Payee ID)</label>
                 </field>

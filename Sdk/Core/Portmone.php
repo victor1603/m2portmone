@@ -132,9 +132,40 @@ class Portmone
         return $result;
     }
 
+    /**
+     * @param $data
+     * @return string
+     */
     public function form($data)
     {
         return '';
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function postData($data)
+    {
+        if (isset($data['isGuest']) && $data['isGuest'] == '1') {
+            $result = [
+                'payee_id' => $data['payeeId'],
+                'shop_order_number' => $data['orderId'],
+                'bill_amount' => $data['grandTotal'],
+                'description' => $data['description'],
+                'success_url' => $data['successUrl'],
+                'failure_url' => $data['failureUrl'],
+                'lang' => $data['lang']
+            ];
+        } else {
+            $dataJson = isset($data['params']) ? json_encode($data['params']) : null;
+            $result = [
+                'bodyRequest' => $dataJson,
+                'typeRequest' => 'json'
+            ];
+        }
+
+        return $result;
     }
 
     /**

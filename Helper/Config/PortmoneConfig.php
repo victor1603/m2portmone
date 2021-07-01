@@ -23,6 +23,7 @@ class PortmoneConfig extends AbstractHelper
     const XML_PATH_FAILURE_URL                      = 'payment/portmone_payment/failure_url';
     const XML_PATH_FRONT_URL                        = 'payment/portmone_payment/front_url';
     const XML_PATH_ALLOWED_CARRIERS                 = 'payment/portmone_payment/allowed_carrier';
+    const XML_PATH_ORDER_PREFIX                     = 'payment/portmone_payment/order_prefix';
 
     const SUCCESS_REST_URL                          = 'rest/V1/portmone/success';
     const FAILURE_REST_URL                          = 'rest/V1/portmone/failure';
@@ -131,21 +132,33 @@ class PortmoneConfig extends AbstractHelper
         return $this->getConfigValue(self::XML_PATH_LANGUAGE);
     }
 
+    /**
+     * @return mixed
+     */
     public function getFrontRedirectUrl()
     {
         return $this->getConfigValue(self::XML_PATH_FRONT_URL);
     }
 
+    /**
+     * @return mixed
+     */
     public function getOrderNewStatus()
     {
         return $this->getConfigValue(self::XML_PATH_PAYMENT_NEW_STATUS);
     }
 
+    /**
+     * @return mixed
+     */
     public function getOrderSuccessStatus()
     {
         return $this->getConfigValue(self::XML_PATH_PAYMENT_SUCCESS_STATUS);
     }
 
+    /**
+     * @return mixed
+     */
     public function getOrderFailureStatus()
     {
         return $this->getConfigValue(self::XML_PATH_PAYMENT_ERROR_STATUS);
@@ -166,6 +179,14 @@ class PortmoneConfig extends AbstractHelper
     public function getAllowedCarriers()
     {
         return $this->getConfigValue(self::XML_PATH_ALLOWED_CARRIERS);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderPrefix()
+    {
+        return $this->getConfigValue(self::XML_PATH_ORDER_PREFIX);
     }
 
 }

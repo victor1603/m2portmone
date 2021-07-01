@@ -11,6 +11,7 @@ use CodeCustom\Portmone\Model\Portmone;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\View\LayoutFactory;
 use CodeCustom\Portmone\Helper\Config\PortmoneConfig;
+use CodeCustom\Portmone\Model\PortmonePaymentLink;
 
 class PlaceOrder
 {
@@ -39,12 +40,15 @@ class PlaceOrder
      */
     protected $portmoneHelper;
 
+    protected $portmoneLink;
+
     public function __construct(
         PlaseOrderResolve $placeOrderResolve,
         Order $orderModel,
         CustomerRepositoryInterface $customerRepository,
         LayoutFactory $layoutFactory,
-        PortmoneConfig $portmoneHelper
+        PortmoneConfig $portmoneHelper,
+        PortmonePaymentLink $paymentLink
     )
     {
         $this->placeOrderResolve = $placeOrderResolve;
@@ -52,6 +56,7 @@ class PlaceOrder
         $this->customerRepository = $customerRepository;
         $this->layoutFactory = $layoutFactory;
         $this->portmoneHelper = $portmoneHelper;
+        $this->portmoneLink = $paymentLink;
     }
 
     /**
@@ -84,9 +89,8 @@ class PlaceOrder
             $order = $this->orderModel->loadByIncrementId($orderId);
 
             if ($order && $order->getPayment()->getMethod() == Portmone::METHOD_CODE) {
-                $extensionData = $this->getPaymentLogic($order);
-                $resolvedValue['order']['payment_extension_data']['redirect_url'] = $this->portmoneHelper->getSubmitUrl();
-                $resolvedValue['order']['payment_extension_data']['html_data'] = $extensionData;
+                $resolvedValue['order']['payment_extension_data']['redirect_url'] = $this->portmoneLink->getPaymentLink($order);
+                $resolvedValue['order']['payment_extension_data']['html_data'] = '';
                 $resolvedValue['order']['payment_extension_data']['payment_method'] = $order->getPayment()->getMethod();
             }
         } catch (\Exception $e) {
@@ -97,6 +101,8 @@ class PlaceOrder
     }
 
     /**
+     * Deprecated from 2021-07-01
+     * use cURL to portmone access
      * @param \Magento\Sales\Model\Order $order
      */
     protected function getPaymentLogic($order)
