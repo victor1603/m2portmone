@@ -149,8 +149,12 @@ class Success implements SuccessInterface
         /**
          * Make redirect to front page
          */
-        if ($this->configHelper->getFrontRedirectUrl()) {
-            $this->response->setRedirect($this->configHelper->getFrontRedirectUrl())->sendResponse();
+        $redirectUrl = $this->configHelper->getFrontRedirectUrl();
+        if (isset($params['ATTRIBUTE1']) && strpos($params['ATTRIBUTE1'], 'http') !== false) {
+            $redirectUrl = $this->configHelper->buildPureFrontUrl($params['ATTRIBUTE1']);
+        }
+        if ($redirectUrl) {
+            $this->response->setRedirect($redirectUrl)->sendResponse();
         } else {
             $this->response->setRedirect($this->storeManager->getStore()->getBaseUrl() . 'checkout/onepage/success/')->sendResponse();
         }

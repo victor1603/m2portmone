@@ -189,4 +189,17 @@ class PortmoneConfig extends AbstractHelper
         return $this->getConfigValue(self::XML_PATH_ORDER_PREFIX);
     }
 
+    public function buildPureFrontUrl($url = null)
+    {
+        if (!$url) {
+            return null;
+        }
+
+        $parseUrl = parse_url($url);
+
+        return isset($parseUrl['port']) && $parseUrl['port']
+            ? $parseUrl['scheme'] . "://" . $parseUrl['host'] . ":" . $parseUrl['port'] . "/"
+            : $parseUrl['scheme'] . "://" . $parseUrl['host'] . "/";
+    }
+
 }
