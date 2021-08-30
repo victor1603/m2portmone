@@ -7,6 +7,7 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use CodeCustom\Portmone\Model\Curl\Transport;
 use CodeCustom\Portmone\Model\Data as TransportData;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Customer\Model\CustomerFactory;
 
 class PortmonePaymentLink
 {
@@ -34,6 +35,8 @@ class PortmonePaymentLink
      */
     protected $storeManager;
 
+    protected $customerFactory;
+
     /**
      * PortmonePaymentLink constructor.
      * @param CustomerRepositoryInterface $customerRepository
@@ -44,13 +47,15 @@ class PortmonePaymentLink
         CustomerRepositoryInterface $customerRepository,
         Transport $curlTransport,
         TransportData $transportData,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        CustomerFactory $customerFactory
     )
     {
         $this->customerRepository = $customerRepository;
         $this->curlTransport = $curlTransport;
         $this->transportData = $transportData;
         $this->storeManager = $storeManager;
+        $this->customerFactory = $customerFactory;
     }
 
     /**
@@ -87,7 +92,7 @@ class PortmonePaymentLink
     public function getPaymentLink(Order $order)
     {
         try {
-            $customer = null;
+            $customer = $this->customerFactory->create();
             if ($order->getCustomerId()) {
                 $customer = $this->customerRepository->getById($order->getCustomerId());
             }
