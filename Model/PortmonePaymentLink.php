@@ -7,7 +7,7 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use CodeCustom\Portmone\Model\Curl\Transport;
 use CodeCustom\Portmone\Model\Data as TransportData;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\Customer\Model\CustomerFactory;
+use Magento\Customer\Api\CustomerRepositoryInterfaceFactory;
 
 class PortmonePaymentLink
 {
@@ -48,7 +48,7 @@ class PortmonePaymentLink
         Transport $curlTransport,
         TransportData $transportData,
         StoreManagerInterface $storeManager,
-        CustomerFactory $customerFactory
+        CustomerRepositoryInterfaceFactory $customerFactory
     )
     {
         $this->customerRepository = $customerRepository;
