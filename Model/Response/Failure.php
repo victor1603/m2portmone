@@ -79,7 +79,7 @@ class Failure implements FailureInterface
     public function failure()
     {
         $params = $this->request->getParams();
-        $orderId = isset($params['SHOPORDERNUMBER']) ? $params['SHOPORDERNUMBER'] : null;
+        $orderId = isset($params['SHOPORDERNUMBER']) ? $this->configHelper->parseOrderId($params['SHOPORDERNUMBER']) : null;
 
         if ($orderId) {
             $order = $this->orderModel->loadByIncrementId($orderId);
