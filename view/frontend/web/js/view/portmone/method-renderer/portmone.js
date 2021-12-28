@@ -22,27 +22,16 @@ define(
             isActive: function() {
                 return true;
             },
-            validate: function() {
-                var $form = $('#' + this.getCode() + '-form');
-                return $form.validation() && $form.validation('isValid');
-            },
             afterPlaceOrder: function () {
-                $.post(url.build('payment/checkout/portmonepayment'), {
+                $.post(url.build('portmone/checkout/payment'), {
                     'random_string': this._generateRandomString(30)
                 }).done(function(data) {
                     if (!data.status) {
                         return
                     }
-                    if (data.status == 'success') {
-                        if (data.content) {
-                            var html = '<div id="portmoneForm" style="display: none;">' + data.content + '</div>';
-                            $('body').append(html);
-                            $('#portmoneForm form:first').submit();
-                        }
-                    } else {
-                        if (data.redirect) {
-                            window.location = data.redirect;
-                        }
+
+                    if (data.status && data.redirect) {
+                        window.location = data.redirect;
                     }
                 });
             },

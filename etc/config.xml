@@ -15,5 +15,11 @@
                 <action_url>https://www.portmone.com.ua/gateway/</action_url>
             </portmone_payment>
         </payment>
+        <web>
+            <cookie>
+                <samesite>Lax</samesite>
+                <affected_keys>PHPSESSID,form_key,private_content_version,X-Magento-Vary</affected_keys>
+            </cookie>
+        </web>
     </default>
 </config>

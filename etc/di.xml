@@ -36,4 +36,9 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\Stdlib\CookieManagerInterface">
+        <plugin name="switch_samesite"
+                type="CodeCustom\Portmone\Plugin\SwitchSameSite"
+                sortOrder="10"/>
+    </type>
 </config>

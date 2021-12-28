@@ -112,7 +112,7 @@ class Success implements SuccessInterface
     public function success()
     {
         $params = $this->request->getParams();
-        $orderId = isset($params['SHOPORDERNUMBER']) ? $params['SHOPORDERNUMBER'] : null;
+        $orderId = isset($params['SHOPORDERNUMBER']) ? $this->configHelper->parseOrderId($params['SHOPORDERNUMBER']) : null;
         $result = isset($params['RESULT']) ? $params['RESULT'] : null;
 
         /**

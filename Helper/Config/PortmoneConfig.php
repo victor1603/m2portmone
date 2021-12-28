@@ -189,6 +189,15 @@ class PortmoneConfig extends AbstractHelper
         return $this->getConfigValue(self::XML_PATH_ORDER_PREFIX);
     }
 
+    public function parseOrderId($orderId = null)
+    {
+        $prefix = $this->getOrderPrefix();
+        if ($orderId && $prefix) {
+            return str_replace($prefix, '', $orderId);
+        }
+        return $orderId;
+    }
+
     public function buildPureFrontUrl($url = null)
     {
         if (!$url) {

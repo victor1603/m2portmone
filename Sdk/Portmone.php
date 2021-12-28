@@ -153,7 +153,9 @@ class Portmone extends PortmoneCoreSdk
             'preauthFlag' => 'N',
             'billCurrency' => 'UAH',
             'encoding' => '',
-            'attribute1' => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null
+            'attribute1' => isset($_SERVER['HTTP_REFERER']) && $this->_helper->getFrontRedirectUrl()
+                ? $_SERVER['HTTP_REFERER']
+                : null
         ];
     }
 

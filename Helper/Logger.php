@@ -65,9 +65,9 @@ class Logger
     }
 
     /**
-     * @param string $log_name
-     * @param string $fileFolder
-     * @return \CodeCustom\PortmonePreAuthorization\Helper\Logger
+     * @param $log_name
+     * @param $fileFolder
+     * @return LaminasLogger
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function create($log_name = 'log_file', $fileFolder = '')

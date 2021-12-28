@@ -14,7 +14,7 @@ define(
                 component: 'CodeCustom_Portmone/js/view/portmone/method-renderer/portmone'
             }
         );
-        /** Add view logic here if needed */
+
         return Component.extend({});
     }
 );
